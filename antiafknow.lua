@@ -593,7 +593,7 @@ end)
 
 SeedButton.MouseButton1Click:Connect(function()
     if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
-        Player.Character.HumanoidRootPart.CFrame = CFrame.new(61, 3, -27)
+        Player.Character.HumanoidRootPart.CFrame = CFrame.new(85, 3, -27)
         StatusValue.Text = "TELEPORTED TO SEED"
         StatusValue.TextColor3 = Color3.fromRGB(0, 100, 255) -- Blue
         delay(2, function()
@@ -605,7 +605,7 @@ end)
 
 GearButton.MouseButton1Click:Connect(function()
     if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
-        Player.Character.HumanoidRootPart.CFrame = CFrame.new(-260, 3, -31)
+        Player.Character.HumanoidRootPart.CFrame = CFrame.new(-285, 3, -32)
         StatusValue.Text = "TELEPORTED TO GEAR"
         StatusValue.TextColor3 = Color3.fromRGB(0, 200, 100) -- Green
         delay(2, function()
