@@ -41,7 +41,7 @@ end
 -- Main Container with Glass Morphism Effect
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
-MainFrame.Size = UDim2.new(0, 320, 0, 220)
+MainFrame.Size = UDim2.new(0, 320, 0, 260) -- Increased height for new buttons
 MainFrame.Position = UDim2.new(0.7, 0, 0.1, 0)
 MainFrame.BackgroundColor3 = ColorPalette.Background
 MainFrame.BackgroundTransparency = 0.2
@@ -140,7 +140,7 @@ end)
 -- Content Frame
 local ContentFrame = Instance.new("Frame")
 ContentFrame.Name = "ContentFrame"
-ContentFrame.Size = UDim2.new(1, -20, 1, -52)
+ContentFrame.Size = UDim2.new(1, -20, 1, -92) -- Adjusted for larger footer
 ContentFrame.Position = UDim2.new(0, 10, 0, 42)
 ContentFrame.BackgroundTransparency = 1
 ContentFrame.Parent = MainFrame
@@ -396,14 +396,15 @@ ServerValue.Parent = ServerCard
 -- Footer with Buttons
 local Footer = Instance.new("Frame")
 Footer.Name = "Footer"
-Footer.Size = UDim2.new(1, -20, 0, 32)
-Footer.Position = UDim2.new(0, 10, 1, -35)
+Footer.Size = UDim2.new(1, -20, 0, 70) -- Increased height for two rows
+Footer.Position = UDim2.new(0, 10, 1, -75)
 Footer.BackgroundTransparency = 1
 Footer.Parent = MainFrame
 
+-- Rejoin Button (Top Row)
 local RejoinButton = Instance.new("TextButton")
 RejoinButton.Name = "RejoinButton"
-RejoinButton.Size = UDim2.new(0.3, 0, 1, 0)
+RejoinButton.Size = UDim2.new(1, 0, 0, 30) -- Full width
 RejoinButton.Position = UDim2.new(0, 0, 0, 0)
 RejoinButton.BackgroundColor3 = ColorPalette.Secondary
 RejoinButton.BackgroundTransparency = 0.5
@@ -417,6 +418,65 @@ local RejoinCorner = Instance.new("UICorner")
 RejoinCorner.CornerRadius = UDim.new(0, 8)
 RejoinCorner.Parent = RejoinButton
 
+-- Coordinate Buttons Frame (Bottom Row)
+local CoordinateButtons = Instance.new("Frame")
+CoordinateButtons.Name = "CoordinateButtons"
+CoordinateButtons.Size = UDim2.new(1, 0, 0, 30)
+CoordinateButtons.Position = UDim2.new(0, 0, 0, 35)
+CoordinateButtons.BackgroundTransparency = 1
+CoordinateButtons.Parent = Footer
+
+-- Seed Coordinate Button (Blue)
+local SeedButton = Instance.new("TextButton")
+SeedButton.Name = "SeedButton"
+SeedButton.Size = UDim2.new(0.32, -3, 1, 0)
+SeedButton.Position = UDim2.new(0, 0, 0, 0)
+SeedButton.BackgroundColor3 = Color3.fromRGB(0, 100, 255) -- Blue
+SeedButton.BackgroundTransparency = 0.5
+SeedButton.Font = Enum.Font.GothamMedium
+SeedButton.Text = "SEED"
+SeedButton.TextColor3 = ColorPalette.Text
+SeedButton.TextSize = 12
+SeedButton.Parent = CoordinateButtons
+
+local SeedCorner = Instance.new("UICorner")
+SeedCorner.CornerRadius = UDim.new(0, 8)
+SeedCorner.Parent = SeedButton
+
+-- Gear Coordinate Button (Green)
+local GearButton = Instance.new("TextButton")
+GearButton.Name = "GearButton"
+GearButton.Size = UDim2.new(0.32, -3, 1, 0)
+GearButton.Position = UDim2.new(0.34, 0, 0, 0)
+GearButton.BackgroundColor3 = Color3.fromRGB(0, 200, 100) -- Green
+GearButton.BackgroundTransparency = 0.5
+GearButton.Font = Enum.Font.GothamMedium
+GearButton.Text = "GEAR"
+GearButton.TextColor3 = ColorPalette.Text
+GearButton.TextSize = 12
+GearButton.Parent = CoordinateButtons
+
+local GearCorner = Instance.new("UICorner")
+GearCorner.CornerRadius = UDim.new(0, 8)
+GearCorner.Parent = GearButton
+
+-- Bloodit Coordinate Button (Red)
+local BlooditButton = Instance.new("TextButton")
+BlooditButton.Name = "BlooditButton"
+BlooditButton.Size = UDim2.new(0.32, 0, 1, 0)
+BlooditButton.Position = UDim2.new(0.68, 0, 0, 0)
+BlooditButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50) -- Red
+BlooditButton.BackgroundTransparency = 0.5
+BlooditButton.Font = Enum.Font.GothamMedium
+BlooditButton.Text = "BLOODIT"
+BlooditButton.TextColor3 = ColorPalette.Text
+BlooditButton.TextSize = 12
+BlooditButton.Parent = CoordinateButtons
+
+local BlooditCorner = Instance.new("UICorner")
+BlooditCorner.CornerRadius = UDim.new(0, 8)
+BlooditCorner.Parent = BlooditButton
+
 -- Add hover effects to buttons
 local function SetupButtonHover(button)
     button.MouseEnter:Connect(function()
@@ -429,6 +489,9 @@ local function SetupButtonHover(button)
 end
 
 SetupButtonHover(RejoinButton)
+SetupButtonHover(SeedButton)
+SetupButtonHover(GearButton)
+SetupButtonHover(BlooditButton)
 
 -- AFK Functionality
 local AFKStartTime = os.time()
@@ -526,6 +589,42 @@ end)
 -- Button Functionality
 RejoinButton.MouseButton1Click:Connect(function()
     TeleportService:Teleport(game.PlaceId, Player)
+end)
+
+SeedButton.MouseButton1Click:Connect(function()
+    if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
+        Player.Character.HumanoidRootPart.CFrame = CFrame.new(61, 3, -27)
+        StatusValue.Text = "TELEPORTED TO SEED"
+        StatusValue.TextColor3 = Color3.fromRGB(0, 100, 255) -- Blue
+        delay(2, function()
+            StatusValue.Text = "ACTIVE"
+            StatusValue.TextColor3 = ColorPalette.Success
+        end)
+    end
+end)
+
+GearButton.MouseButton1Click:Connect(function()
+    if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
+        Player.Character.HumanoidRootPart.CFrame = CFrame.new(-260, 3, -31)
+        StatusValue.Text = "TELEPORTED TO GEAR"
+        StatusValue.TextColor3 = Color3.fromRGB(0, 200, 100) -- Green
+        delay(2, function()
+            StatusValue.Text = "ACTIVE"
+            StatusValue.TextColor3 = ColorPalette.Success
+        end)
+    end
+end)
+
+BlooditButton.MouseButton1Click:Connect(function()
+    if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
+        Player.Character.HumanoidRootPart.CFrame = CFrame.new(-91, 4, -11)
+        StatusValue.Text = "TELEPORTED TO BLOODIT"
+        StatusValue.TextColor3 = Color3.fromRGB(255, 50, 50) -- Red
+        delay(2, function()
+            StatusValue.Text = "ACTIVE"
+            StatusValue.TextColor3 = ColorPalette.Success
+        end)
+    end
 end)
 
 -- Main Loop
